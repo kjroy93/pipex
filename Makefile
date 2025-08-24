@@ -12,7 +12,7 @@ INCLUDE_DIR = include
 LIBFT_INCLUDE = $(LIBFT_DIR)/include
 
 # Source files listed manually
-SRC = 
+SRC = src/parse/get_argv.c	src/utils/utils.c	pipex.c	\
 
 # Object files
 OBJ = $(SRC:.c=.o)
@@ -38,7 +38,7 @@ $(LIBFT):
 
 # Compile push_swap
 $(NAME): $(OBJ_FILES)
-	@echo "🔢 42: Compiling pipex..."
+	@echo "(|) 42: Compiling pipex..."
 	@$(CC) $(CFLAGS) $^ $(LIBFT) -o $@
 
 # Compile each .c to .o inside obj directory

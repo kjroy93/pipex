@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 18:52:58 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/08/09 18:53:01 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/08/22 21:09:15 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int		ft_putpointer(unsigned long ptr);
 int		ft_putunsigned(unsigned int n);
 int		ft_printf(const char *format, ...);
 
-// function that reads a file from a file descriptor
+// function that reads a file content or terminal entry.
 char	*get_next_line(int fd);
 
 #endif
