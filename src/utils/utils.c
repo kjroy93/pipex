@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 21:57:10 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/08/24 14:50:16 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/27 21:36:36 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-t_cmd	*prepare_node(char **argv, int *start, int i)
+t_cmd	*prepare_node(char *cmd_str, int i)
 {
 	t_cmd	*node;
 
 	node = malloc(sizeof(t_cmd));
 	if (!node)
 		return (NULL);
-	node->argv = ft_split(argv[*start + i], ' ');
+	node->argv = split_with_quotes(cmd_str);
 	node->index = i;
 	node->next = NULL;
 	return (node);

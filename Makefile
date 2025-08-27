@@ -12,7 +12,7 @@ INCLUDE_DIR = include
 LIBFT_INCLUDE = $(LIBFT_DIR)/include
 
 # Source files listed manually
-SRC = src/parse/get_argv.c	src/utils/utils.c	pipex.c	\
+SRC = src/parse/get_argv.c	src/utils/ft_new_split.c	src/utils/utils.c	pipex.c	\
 
 # Object files
 OBJ = $(SRC:.c=.o)

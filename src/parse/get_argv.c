@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_argv.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 20:45:54 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/08/24 14:29:12 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/27 21:36:03 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	get_commands(int argc, char **argv, t_pipex *data)
 	i = 0;
 	while (i < data->n_cmds)
 	{
-		new = prepare_node(argv, &start, i);
+		new = prepare_node(argv[start + i], i);
 		if (new)
 			cmd_add_back(&data->cmds, new);
 		i++;
