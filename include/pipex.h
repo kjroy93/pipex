@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 09:25:08 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/08/27 21:36:58 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/08/29 20:12:31 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct s_pipex
 	char	*infile;
 	int		heredoc;
 	int		n_cmds;
+	int		infile_fd;
+	int		outfile_fd;
 	t_cmd	*cmds;
 }	t_pipex;
 
