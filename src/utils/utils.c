@@ -6,7 +6,7 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 21:57:10 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/08/29 23:22:43 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/30 23:24:55 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,21 +70,22 @@ void	cmd_free(t_cmd **lst)
 	*lst = NULL;
 }
 
-void	open_files(t_pipex *data)
+int	open_files(t_pipex *data)
 {
 	data->infile_fd = open(data->infile, O_RDONLY);
 	if (data->infile_fd < 0)
 	{
 		perror(data->infile);
-		exit(EXIT_FAILURE);
+		return (1);
 	}
 	data->outfile_fd = open(data->outfile, O_CREAT, O_WRONLY, O_APPEND, 0644);
 	if (data->outfile_fd < 0)
 	{
 		perror(data->outfile);
 		close(data->infile_fd);
-		exit(EXIT_FAILURE);
+		return (1);
 	}
+	return (0);
 }
 
 void	free_matrix(char **matrix)

@@ -6,13 +6,13 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 21:05:50 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/08/29 19:59:14 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/30 23:36:40 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void	init_pipex(t_pipex *data, int argc, char **argv, char **envp)
+static void	init_pipex(t_pipex *data, int argc, char **argv)
 {
 	data->heredoc = 0;
 	data->infile = argv[1];
@@ -42,9 +42,13 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc < 5)
 		return (write(2, "Error: not sufficient arguments.\n", 34), 1);
-	init_pipex(&data, argc, argv, envp);
-	if (open_files(&data) == -1)
+	init_pipex(data, argc, argv);
+	if (open_files(data) == 1)
+	{
+		cmd_free(&data->cmds);
+		free(data);
 		return (1);
+	}
 	print_commands(data->cmds);
 	cmd_free(&data->cmds);
 	free(data);
