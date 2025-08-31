@@ -6,7 +6,7 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 09:25:08 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/08/31 00:22:37 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/31 13:37:58 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PIPEX_H
 
 # include "libft.h"
+# include <sys/wait.h>
 
 typedef struct s_cmd
 {
@@ -44,8 +45,8 @@ void	free_matrix(char **matrix);
 int		open_files(t_pipex *data);
 void	redirect_infile(int fd);
 void	redirect_outfile(int fd);
-void	redirect_pipe_in(int fd);
+void	redirect_pipe_in(int read_fd);
 void	redirect_pipe_out(int write_fd);
-void 	first_child(t_pipex *data, char **envp)
+void	pater_familias(t_pipex *data, char **envp);
 
 #endif

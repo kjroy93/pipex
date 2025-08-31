@@ -3,23 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_new_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 15:17:07 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/08/27 21:28:05 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/08/31 14:05:24 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static int	is_space(char c)
-{
-	return (c <= 32);
-}
-
 static void	skip_spaces(const char *s, int *i)
 {
-	while (s[*i] && is_space(s[*i]))
+	while (s[*i] && s[*i] <= 32)
 		(*i)++;
 }
 
@@ -44,7 +39,7 @@ static void	normal_chain(const char *s, char **argv, int *i, int *argc)
 	int	start;
 
 	start = *i;
-	while (s[*i] && !is_space(s[*i]) && s[*i] != '"' && s[*i] != '\'')
+	while (s[*i] && !(s[*i] <= 32) && s[*i] != '"' && s[*i] != '\'')
 		(*i)++;
 	argv[*argc] = ft_substr(s, (unsigned int)start, (size_t)(*i - start));
 	(*argc)++;

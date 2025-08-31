@@ -6,7 +6,7 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 20:37:49 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/08/29 21:21:27 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/31 12:13:07 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ void	redirect_outfile(int fd)
 	close(fd);
 }
 
-void	redirect_pipe_in(int fd)
+void	redirect_pipe_in(int read_fd)
 {
-	if (dup2(fd, STDIN_FILENO) < 0)
+	if (dup2(read_fd, STDIN_FILENO) < 0)
 	{
 		perror("dup2 pipe read");
 		exit(EXIT_FAILURE);
 	}
-	close(fd);
+	close(read_fd);
 }
 
 void	redirect_pipe_out(int write_fd)
