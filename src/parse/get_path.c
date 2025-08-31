@@ -6,7 +6,7 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 21:50:24 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/08/31 13:46:57 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/31 15:15:18 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ char	*define_path(char *cmd, char **envp)
 	paths = ft_split(envp[i] + 5, ':');
 	i = 0;
 	full_path = is_accesible(paths, &i, cmd);
+	if (!full_path)
+	{
+		free_matrix(paths);
+		ft_putstr_fd("No valid path.\n", 2);
+		return (NULL);
+	}
 	free_matrix(paths);
 	return (full_path);
 }

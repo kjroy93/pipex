@@ -6,7 +6,7 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 21:57:10 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/08/31 14:44:17 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/08/31 15:04:12 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	open_files(t_pipex *data)
 		perror(data->infile);
 		return (1);
 	}
-	data->outfile_fd = open(data->outfile, O_CREAT | O_WRONLY | O_APPEND, 0644);
+	data->outfile_fd = open(data->outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (data->outfile_fd < 0)
 	{
 		perror(data->outfile);
