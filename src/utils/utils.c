@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 21:57:10 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/08/31 15:04:12 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/09/01 18:29:58 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	free_matrix(char **matrix)
 	while (matrix[i])
 	{
 		free(matrix[i]);
-		i++;	
+		i++;
 	}
 	free(matrix);
 }
