@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 21:05:50 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/08/31 15:32:11 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/09/02 22:12:29 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ static void	init_pipex(t_pipex *data, int argc, char **argv)
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	*data;
+	t_cmd	*tmp;
 
-	if (argc < 5)
-		return (write(2, "Error: not sufficient arguments.\n", 34), 1);
+	if (argc < 5 || argc > 5)
+		return (write(2, "Error: incorrect number of arguments.\n", 34), 1);
 	data = malloc(sizeof(t_pipex));
 	if (!data)
 	{
@@ -38,6 +39,14 @@ int	main(int argc, char **argv, char **envp)
 		cmd_free(&data->cmds);
 		free(data);
 		return (1);
+	}
+	tmp = data->cmds;
+	while (tmp)
+	{
+		int i = 0;
+		ft_printf("%s\n", tmp->argv[i]);
+		tmp = tmp->next;
+		i++;
 	}
 	pater_familias(data, envp);
 	cmd_free(&data->cmds);
