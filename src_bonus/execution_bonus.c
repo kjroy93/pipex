@@ -3,28 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   execution_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:00:27 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/09/02 21:34:17 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/09/03 18:22:32 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void	special_wait(pid_t *pids, int n)
+static void	init_pater(t_pipex *data, t_cmd **cmd, int *fd)
 {
-	int	status;
-	int	i;
-
-	i = 0;
-	while (i < n)
-	{
-		if (waitpid(pids[i], &status, 0) == 0)
-			perror("waitpid");
-		if (i == n - 1 && WIFEXITED(status))
-			exit(WEXITSTATUS(status));
-	}
+	*cmd = data->cmds;
+	*fd = data->infile_fd;
+	data->pids = malloc((sizeof(pid_t)) * data->n_cmds);
+	if (!data->pids)
+		perror_exit("malloc data->pids");
 }
 
 static void	execute(t_cmd *cmd, t_pipex *data, char **envp)
@@ -70,17 +64,15 @@ static void	childs_bonus(t_pipex *data, t_cmd *cmd, int fd[2], int *fd_in)
 	execute(cmd, data, data->envp);
 }
 
-void pater_familias_bonus(t_pipex *data)
+int	pater_familias_bonus(t_pipex *data)
 {
 	t_cmd	*cmd;
-	pid_t	pids[data->n_cmds];
 	pid_t	pid;
 	int		fd[2];
 	int		prev_fd;
 	int		i;
 
-	cmd = data->cmds;
-	prev_fd = data->infile_fd;
+	init_pater(data, &cmd, &prev_fd);
 	i = 0;
 	while (cmd)
 	{
@@ -94,8 +86,9 @@ void pater_familias_bonus(t_pipex *data)
 			perror_exit("pid");
 		if (pid == 0)
 			childs_bonus(data, cmd, fd, &prev_fd);
+		else
+			data->pids[i++] = pid;
 		cmd = next_cmd(data, cmd, &prev_fd, fd);
 	}
-	pids[i++] = pid;
-	special_wait(pids, i);
+	return (special_wait(data->pids, i));
 }

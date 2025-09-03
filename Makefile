@@ -13,14 +13,14 @@ LIBFT_DIR   = libft
 INCLUDE_DIR = include
 LIBFT_INCLUDE = $(LIBFT_DIR)/include
 
-# Source files obligatorios
+# Source files mandatory
 SRC         = $(SRC_DIR)/parse/get_argv.c \
               $(SRC_DIR)/parse/ft_new_split.c \
               $(SRC_DIR)/utils/utils.c \
               $(SRC_DIR)/utils/redirect_functions.c \
               $(SRC_DIR)/utils/error_free.c \
-              $(SRC_DIR)/execution.c \
-              pipex.c
+              $(SRC_DIR)/parse/execution.c \
+              $(SRC_DIR)/pipex.c
 
 # Source files bonus
 SRC_BONUS   = $(SRC_DIR)/parse/get_argv.c \
@@ -32,7 +32,7 @@ SRC_BONUS   = $(SRC_DIR)/parse/get_argv.c \
               $(SRC_BONUS_DIR)/pipex_bonus.c \
               $(SRC_BONUS_DIR)/status_bonus.c
 
-# Object files obligatorios y bonus
+# Object files
 OBJ         = $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRC))
 OBJ_BONUS   = $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRC_BONUS))
 
