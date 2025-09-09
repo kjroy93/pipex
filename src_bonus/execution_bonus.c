@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:00:27 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/09/03 18:22:32 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/09 18:57:41 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,15 @@ static t_cmd	*next_cmd(t_pipex *data, t_cmd *cmd, int *prev_fd, int fd[2])
 	if (*prev_fd != data->infile_fd)
 		close(*prev_fd);
 	if (cmd->next)
+	{
 		close(fd[1]);
+		*prev_fd = fd[0];
+		return (cmd->next);
+	}
 	else
 	{
 		close(fd[0]);
+		close(fd[1]);
 		return (NULL);
 	}
 	*prev_fd = fd[0];

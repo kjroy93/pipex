@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 09:25:08 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/09/03 18:22:51 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/09 20:09:18 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ void	redirect_pipe_out(int write_fd);
 void	pater_familias(t_pipex *data, char **envp);
 int		pater_familias_bonus(t_pipex *data);
 int		special_wait(pid_t *pids, int n);
+void	get_commands_here_doc(int argc, char **argv, t_pipex *data);
 
 #endif
