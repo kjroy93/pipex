@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 21:57:10 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/09/18 08:21:17 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/09/18 21:07:47 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,12 @@ int	open_files(t_pipex *data)
 		perror(data->infile);
 		return (1);
 	}
-	data->outfile_fd = open(data->outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (!data->heredoc)
+		data->outfile_fd = open(data->outfile,
+				O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	else
+		data->outfile_fd = open(data->outfile,
+				O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (data->outfile_fd < 0)
 	{
 		perror(data->outfile);

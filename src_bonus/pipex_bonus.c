@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 20:29:49 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/09/18 08:14:14 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/09/18 21:08:08 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	init_pipex(t_pipex *data, int argc, char **argv)
 		data->heredoc = 0;
 		data->infile = argv[1];
 		data->outfile = argv[argc - 1];
-		get_commands(argc, argv, data);	
+		get_commands(argc, argv, data);
 	}
 }
 
