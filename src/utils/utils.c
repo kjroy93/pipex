@@ -6,7 +6,7 @@
 /*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 21:57:10 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/09/18 21:07:47 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/18 21:20:56 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,9 @@ int	open_files(t_pipex *data)
 	if (data->infile_fd < 0)
 	{
 		perror(data->infile);
-		return (1);
+		data->infile_fd = open("/dev/null", O_RDONLY);
+		if (data->infile_fd < 0)
+			return (perror("open /dev/null"), 1);
 	}
 	if (!data->heredoc)
 		data->outfile_fd = open(data->outfile,
