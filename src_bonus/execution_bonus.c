@@ -6,7 +6,7 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 17:00:27 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/09/09 18:57:41 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/09/18 08:37:30 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,7 @@ static t_cmd	*next_cmd(t_pipex *data, t_cmd *cmd, int *prev_fd, int fd[2])
 		*prev_fd = fd[0];
 		return (cmd->next);
 	}
-	else
-	{
-		close(fd[0]);
-		close(fd[1]);
-		return (NULL);
-	}
-	*prev_fd = fd[0];
-	return (cmd->next);
+	return (NULL);
 }
 
 static void	childs_bonus(t_pipex *data, t_cmd *cmd, int fd[2], int *fd_in)
@@ -61,11 +54,13 @@ static void	childs_bonus(t_pipex *data, t_cmd *cmd, int fd[2], int *fd_in)
 	else
 		redirect_pipe_in(*fd_in);
 	if (cmd->next)
+	{
 		redirect_pipe_out(fd[1]);
+		close(fd[0]);
+		close(fd[1]);
+	}
 	else
 		redirect_outfile(data->outfile_fd);
-	close(fd[0]);
-	close(fd[1]);
 	execute(cmd, data, data->envp);
 }
 

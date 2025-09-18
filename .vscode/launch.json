@@ -5,8 +5,8 @@
       "name": "Debug pipex",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/pipex",
-      "args": ["infile",  "ls -l", "wc -l", "cat -e", "outfile"], // puedes cambiarlo por lo que quieras
+      "program": "${workspaceFolder}/pipex_bonus",
+      "args": ["here_doc", "LIMITER", "ls -l", "wc -l", "cat -e", "outfile"], // puedes cambiarlo por lo que quieras
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "environment": [],

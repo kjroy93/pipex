@@ -6,7 +6,7 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 20:29:49 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/09/09 19:51:52 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/09/18 08:14:14 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ int	main(int argc, char **argv, char **envp)
 	exit_code = pater_familias_bonus(data);
 	cmd_free(&data->cmds);
 	free(data);
+	get_next_line(-1);
 	return (exit_code);
 }

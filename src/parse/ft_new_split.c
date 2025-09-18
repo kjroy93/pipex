@@ -6,7 +6,7 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 15:17:07 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/08/31 14:05:24 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/09/18 09:20:50 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ static void	sub_chain(const char *s, char **argv, int *i, int *argc)
 	int		start;
 
 	quote = s[*i];
-	(*i)++;
-	start = *i;
+	if (s[*i] == quote)
+		(*i)++;
+	start = (*i);
 	while (s[*i] && s[*i] != quote)
 		(*i)++;
 	argv[*argc] = ft_substr(s, (unsigned int)start, (size_t)(*i - start));
