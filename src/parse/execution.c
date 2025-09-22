@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/29 19:28:47 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/08/31 15:46:50 by kjroy93          ###   ########.fr       */
+/*   Created: 2025/09/22 19:22:40 by kmarrero          #+#    #+#             */
+/*   Updated: 2025/09/22 20:38:16 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@ static void	execute(t_cmd *cmd, t_pipex *data, char **envp)
 	path = define_path(cmd->argv[0], envp);
 	if (!path)
 	{
-		perror("command not found");
+		perror(cmd->argv[0]);
 		cmd_free(&data->cmds);
 		free(path);
 		free(data);
 		exit(1);
 	}
-	execve(path, cmd->argv, envp);
+	if (execve(path, cmd->argv, envp) == -1)
+		execve("/bin/bash", (char *[]){"bash", path, NULL}, envp);
 	perror("execve");
 	cmd_free(&data->cmds);
 	free(path);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/02 17:00:27 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/09/18 08:37:30 by kjroy93          ###   ########.fr       */
+/*   Created: 2025/09/22 19:23:01 by kmarrero          #+#    #+#             */
+/*   Updated: 2025/09/22 20:38:08 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ static void	execute(t_cmd *cmd, t_pipex *data, char **envp)
 		return ;
 	path = define_path(cmd->argv[0], envp);
 	if (!path)
-		perror_free("command not found", data, path);
-	execve(path, cmd->argv, envp);
+		perror_free(cmd->argv[0], data, path);
+	if (execve(path, cmd->argv, envp) == -1)
+		execve("/bin/bash", (char *[]){"bash", path, NULL}, envp);
 	perror_free("execve", data, path);
 }
 

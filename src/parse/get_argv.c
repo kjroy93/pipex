@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_argv.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/22 20:45:54 by kjroy93           #+#    #+#             */
-/*   Updated: 2025/09/02 19:00:35 by kjroy93          ###   ########.fr       */
+/*   Created: 2025/09/22 19:22:53 by kmarrero          #+#    #+#             */
+/*   Updated: 2025/09/22 20:06:14 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ char	*define_path(char *cmd, char **envp)
 	if (!full_path)
 	{
 		free_matrix(paths);
-		ft_putstr_fd("No valid path.\n", 2);
 		return (NULL);
 	}
 	free_matrix(paths);
