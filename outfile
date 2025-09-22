@@ -1,4 +1,0 @@
-CFLAGS      = -Wall -Wextra -Werror -g3 -I$(INCLUDE_DIR) -I$(LIBFT_INCLUDE)
-all: $(LIBFT) $(NAME)
-re: fclean all
-.PHONY: all clean fclean re bonus

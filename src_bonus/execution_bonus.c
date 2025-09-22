@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:23:01 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/22 20:38:08 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/23 00:18:37 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	init_pater(t_pipex *data, t_cmd **cmd, int *fd)
 {
 	*cmd = data->cmds;
 	*fd = data->infile_fd;
+	data->prev_fd = data->infile_fd;
 	data->pids = malloc((sizeof(pid_t)) * data->n_cmds);
 	if (!data->pids)
 		perror_exit("malloc data->pids");
@@ -30,8 +31,7 @@ static void	execute(t_cmd *cmd, t_pipex *data, char **envp)
 	path = define_path(cmd->argv[0], envp);
 	if (!path)
 		perror_free(cmd->argv[0], data, path);
-	if (execve(path, cmd->argv, envp) == -1)
-		execve("/bin/bash", (char *[]){"bash", path, NULL}, envp);
+	execve(path, cmd->argv, envp);
 	perror_free("execve", data, path);
 }
 
@@ -45,15 +45,24 @@ static t_cmd	*next_cmd(t_pipex *data, t_cmd *cmd, int *prev_fd, int fd[2])
 		*prev_fd = fd[0];
 		return (cmd->next);
 	}
+	if (cmd != data->cmds)
+		close(fd[0]);
 	return (NULL);
 }
 
 static void	childs_bonus(t_pipex *data, t_cmd *cmd, int fd[2], int *fd_in)
 {
 	if (cmd == data->cmds)
+	{
 		redirect_infile(data->infile_fd);
+		if (cmd->next)
+			close(data->outfile_fd);
+	}
 	else
+	{
 		redirect_pipe_in(*fd_in);
+		close(data->infile_fd);
+	}
 	if (cmd->next)
 	{
 		redirect_pipe_out(fd[1]);
@@ -61,7 +70,10 @@ static void	childs_bonus(t_pipex *data, t_cmd *cmd, int fd[2], int *fd_in)
 		close(fd[1]);
 	}
 	else
+	{
 		redirect_outfile(data->outfile_fd);
+		close(data->prev_fd);
+	}
 	execute(cmd, data, data->envp);
 }
 
