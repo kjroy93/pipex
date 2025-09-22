@@ -39,7 +39,7 @@ OBJ_BONUS   = $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRC_BONUS))
 
 # Compiler and flags
 CC          = cc
-CFLAGS      = -Wall -Wextra -Werror -g -I$(INCLUDE_DIR) -I$(LIBFT_INCLUDE)
+CFLAGS      = -Wall -Wextra -Werror -g3 -I$(INCLUDE_DIR) -I$(LIBFT_INCLUDE)
 
 # Static libft library
 LIBFT       = $(LIBFT_DIR)/libft.a

@@ -6,7 +6,7 @@
 /*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:22:40 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/22 20:38:16 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/22 22:03:14 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ static void	execute(t_cmd *cmd, t_pipex *data, char **envp)
 		free(data);
 		exit(1);
 	}
-	if (execve(path, cmd->argv, envp) == -1)
-		execve("/bin/bash", (char *[]){"bash", path, NULL}, envp);
+	execve(path, cmd->argv, envp);
 	perror("execve");
 	cmd_free(&data->cmds);
 	free(path);
@@ -56,7 +55,7 @@ static void	first_child(t_pipex *data, char **envp, int fd[2])
 	}
 }
 
-static void	second_child(t_pipex *data, char **envp, int fd[2])
+static pid_t	second_child(t_pipex *data, char **envp, int fd[2])
 {
 	pid_t	pid;
 
@@ -74,11 +73,14 @@ static void	second_child(t_pipex *data, char **envp, int fd[2])
 		close(fd[1]);
 		execute(data->cmds->next, data, envp);
 	}
+	return (pid);
 }
 
 void	pater_familias(t_pipex *data, char **envp)
 {
-	int	fd[2];
+	int		fd[2];
+	pid_t	pid2;
+	int		status;
 
 	if (pipe(fd) == -1)
 	{
@@ -86,9 +88,13 @@ void	pater_familias(t_pipex *data, char **envp)
 		return ;
 	}
 	first_child(data, envp, fd);
-	second_child(data, envp, fd);
+	pid2 = second_child(data, envp, fd);
 	close(fd[0]);
 	close(fd[1]);
 	wait(NULL);
-	wait(NULL);
+	waitpid(pid2, &status, 0);
+	if (WIFEXITED(status))
+		exit(WEXITSTATUS(status));
+	else
+		exit(1);
 }

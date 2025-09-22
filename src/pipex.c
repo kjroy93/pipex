@@ -6,7 +6,7 @@
 /*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:22:05 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/22 19:22:07 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/22 21:42:53 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	}
 	pater_familias(data, envp);
+	printf("hola\n");
 	cmd_free(&data->cmds);
+	close(data->infile_fd);
+	close(data->outfile_fd);
 	free(data);
 	return (0);
 }
