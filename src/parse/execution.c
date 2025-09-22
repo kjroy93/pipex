@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:22:40 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/22 22:03:14 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/22 23:43:16 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static void	first_child(t_pipex *data, char **envp, int fd[2])
 		redirect_pipe_out(fd[1]);
 		close(fd[0]);
 		close(fd[1]);
+		close(data->outfile_fd);
 		execute(data->cmds, data, envp);
 	}
 }
@@ -71,12 +72,13 @@ static pid_t	second_child(t_pipex *data, char **envp, int fd[2])
 		redirect_outfile(data->outfile_fd);
 		close(fd[0]);
 		close(fd[1]);
+		close(data->infile_fd);
 		execute(data->cmds->next, data, envp);
 	}
 	return (pid);
 }
 
-void	pater_familias(t_pipex *data, char **envp)
+int	pater_familias(t_pipex *data, char **envp)
 {
 	int		fd[2];
 	pid_t	pid2;
@@ -85,7 +87,7 @@ void	pater_familias(t_pipex *data, char **envp)
 	if (pipe(fd) == -1)
 	{
 		perror("pipe");
-		return ;
+		return (1);
 	}
 	first_child(data, envp, fd);
 	pid2 = second_child(data, envp, fd);
@@ -93,8 +95,7 @@ void	pater_familias(t_pipex *data, char **envp)
 	close(fd[1]);
 	wait(NULL);
 	waitpid(pid2, &status, 0);
-	if (WIFEXITED(status))
-		exit(WEXITSTATUS(status));
-	else
-		exit(1);
+	if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
+		return (0);
+	return (1);
 }

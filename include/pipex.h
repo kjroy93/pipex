@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:23:23 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/22 19:23:25 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/22 23:59:32 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_pipex
 	char	**envp;
 	int		outfile_fd;
 	int		infile_fd;
+	int		prev_fd;
 	int		heredoc;
 	int		n_cmds;
 	t_cmd	*cmds;
@@ -50,7 +51,7 @@ void	redirect_infile(int fd);
 void	redirect_outfile(int fd);
 void	redirect_pipe_in(int read_fd);
 void	redirect_pipe_out(int write_fd);
-void	pater_familias(t_pipex *data, char **envp);
+int		pater_familias(t_pipex *data, char **envp);
 int		pater_familias_bonus(t_pipex *data);
 int		special_wait(pid_t *pids, int n);
 void	get_commands_here_doc(int argc, char **argv, t_pipex *data);
