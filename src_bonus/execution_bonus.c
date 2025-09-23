@@ -6,7 +6,7 @@
 /*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:23:01 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/23 19:07:23 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/23 20:07:27 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ static t_cmd	*next_cmd(t_pipex *data, t_cmd *cmd, int *prev_fd, int fd[2])
 static void	childs_bonus(t_pipex *data, t_cmd *cmd, int fd[2], int *fd_in)
 {
 	if (cmd == data->cmds)
-		first_child(data, cmd, fd);
+		first_child_bonus(data, cmd, fd);
 	else if (cmd->next == NULL)
-		last_child(data, fd_in);
+		last_child_bonus(data, fd_in);
 	else
-		mid_child(data, fd, fd_in);
+		mid_child_bonus(data, fd, fd_in);
 	execute(cmd, data, data->envp);
 }
 
