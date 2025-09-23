@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:23:23 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/22 23:59:32 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/09/23 19:20:12 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ char	*define_path(char *cmd, char **envp);
 void	free_matrix(char **matrix);
 void	perror_exit(char *message);
 void	perror_free(char *message, t_pipex *data, char *path);
+void	close_fd_parent(t_pipex *data);
 int		open_files(t_pipex *data);
 void	redirect_infile(int fd);
 void	redirect_outfile(int fd);
@@ -55,5 +56,8 @@ int		pater_familias(t_pipex *data, char **envp);
 int		pater_familias_bonus(t_pipex *data);
 int		special_wait(pid_t *pids, int n);
 void	get_commands_here_doc(int argc, char **argv, t_pipex *data);
+void	first_child(t_pipex *data, t_cmd *cmd, int fd[2]);
+void	mid_child(t_pipex *data, int fd[2], int *fd_in);
+void	last_child(t_pipex *data, int *fd_in);
 
 #endif

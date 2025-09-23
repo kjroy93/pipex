@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:23:11 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/23 00:22:30 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/09/23 19:20:46 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,7 @@ int	main(int argc, char **argv, char **envp)
 	cmd_free(&data->cmds);
 	if (data->heredoc)
 		unlink(".heredoc_tmp");
-	close(data->infile_fd);
-	close(data->outfile_fd);
-	close(data->prev_fd);
+	close_fd_parent(data);
 	free(data);
 	get_next_line(-1);
 	return (exit_code);

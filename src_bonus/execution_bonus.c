@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:23:01 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/23 00:18:37 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/09/23 19:07:23 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	init_pater(t_pipex *data, t_cmd **cmd, int *fd)
 {
 	*cmd = data->cmds;
 	*fd = data->infile_fd;
-	data->prev_fd = data->infile_fd;
 	data->pids = malloc((sizeof(pid_t)) * data->n_cmds);
 	if (!data->pids)
 		perror_exit("malloc data->pids");
@@ -53,27 +52,11 @@ static t_cmd	*next_cmd(t_pipex *data, t_cmd *cmd, int *prev_fd, int fd[2])
 static void	childs_bonus(t_pipex *data, t_cmd *cmd, int fd[2], int *fd_in)
 {
 	if (cmd == data->cmds)
-	{
-		redirect_infile(data->infile_fd);
-		if (cmd->next)
-			close(data->outfile_fd);
-	}
+		first_child(data, cmd, fd);
+	else if (cmd->next == NULL)
+		last_child(data, fd_in);
 	else
-	{
-		redirect_pipe_in(*fd_in);
-		close(data->infile_fd);
-	}
-	if (cmd->next)
-	{
-		redirect_pipe_out(fd[1]);
-		close(fd[0]);
-		close(fd[1]);
-	}
-	else
-	{
-		redirect_outfile(data->outfile_fd);
-		close(data->prev_fd);
-	}
+		mid_child(data, fd, fd_in);
 	execute(cmd, data, data->envp);
 }
 

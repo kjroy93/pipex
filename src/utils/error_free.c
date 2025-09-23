@@ -6,7 +6,7 @@
 /*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:22:12 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/22 19:22:14 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/23 19:19:57 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,10 @@ void	perror_free(char *message, t_pipex *data, char *path)
 	data = NULL;
 	path = NULL;
 	exit(EXIT_FAILURE);
+}
+
+void	close_fd_parent(t_pipex *data)
+{
+	close(data->infile_fd);
+	close(data->outfile_fd);
 }

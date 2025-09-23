@@ -28,6 +28,7 @@ SRC_BONUS   = $(SRC_DIR)/parse/get_argv.c \
               $(SRC_DIR)/utils/utils.c \
               $(SRC_DIR)/utils/redirect_functions.c \
               $(SRC_DIR)/utils/error_free.c \
+			  $(SRC_BONUS_DIR)/childs_bonus.c \
 			  $(SRC_BONUS_DIR)/execution_bonus.c \
               $(SRC_BONUS_DIR)/pipex_bonus.c \
               $(SRC_BONUS_DIR)/status_bonus.c \
