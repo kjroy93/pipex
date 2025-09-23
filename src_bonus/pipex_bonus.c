@@ -6,11 +6,17 @@
 /*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:23:11 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/23 19:20:46 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/23 19:51:42 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+static void	here_doc_close(t_pipex *data)
+{
+	close(data->infile_fd);
+	unlink(".heredoc_tmp");
+}
 
 static void	init_pipex(t_pipex *data, int argc, char **argv, char **envp)
 {
@@ -48,12 +54,10 @@ int	main(int argc, char **argv, char **envp)
 		free(data);
 		return (1);
 	}
-	if (data->heredoc)
-		data->infile_fd = open(".heredoc_tmp", O_RDONLY);
 	exit_code = pater_familias_bonus(data);
 	cmd_free(&data->cmds);
 	if (data->heredoc)
-		unlink(".heredoc_tmp");
+		here_doc_close(data);
 	close_fd_parent(data);
 	free(data);
 	get_next_line(-1);

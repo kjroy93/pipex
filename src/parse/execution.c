@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/22 19:22:40 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/22 23:43:16 by kjroy93          ###   ########.fr       */
+/*   Created: 2025/09/23 19:58:28 by kmarrero          #+#    #+#             */
+/*   Updated: 2025/09/23 21:11:02 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@ static void	execute(t_cmd *cmd, t_pipex *data, char **envp)
 	path = define_path(cmd->argv[0], envp);
 	if (!path)
 	{
-		perror(cmd->argv[0]);
+		ft_putstr_fd("pipex: command not found: ", 2);
+		ft_putendl_fd(cmd->argv[0], 2);
 		cmd_free(&data->cmds);
 		free(path);
 		free(data);
-		exit(1);
+		exit(127);
 	}
 	execve(path, cmd->argv, envp);
 	perror("execve");

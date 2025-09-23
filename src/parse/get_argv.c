@@ -6,7 +6,7 @@
 /*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:22:53 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/22 20:06:14 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/23 20:21:53 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ char	*define_path(char *cmd, char **envp)
 	if (!full_path)
 	{
 		free_matrix(paths);
+		ft_printf("command not found: %s\n", cmd);
 		return (NULL);
 	}
 	free_matrix(paths);

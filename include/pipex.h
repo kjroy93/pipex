@@ -6,7 +6,7 @@
 /*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:23:23 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/23 20:04:37 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/23 20:01:12 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef struct s_pipex
 	char	**envp;
 	int		outfile_fd;
 	int		infile_fd;
-	int		prev_fd;
 	int		heredoc;
 	int		n_cmds;
 	t_cmd	*cmds;
