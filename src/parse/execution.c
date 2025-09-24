@@ -6,7 +6,7 @@
 /*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 19:58:28 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/23 21:11:02 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/24 19:54:59 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ int	pater_familias(t_pipex *data, char **envp)
 {
 	int		fd[2];
 	pid_t	pid2;
-	int		status;
+	int		status1;
+	int		status2;
 
 	if (pipe(fd) == -1)
 	{
@@ -94,9 +95,10 @@ int	pater_familias(t_pipex *data, char **envp)
 	pid2 = second_child(data, envp, fd);
 	close(fd[0]);
 	close(fd[1]);
-	wait(NULL);
-	waitpid(pid2, &status, 0);
-	if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
+	waitpid(-1, &status1, 0);
+	waitpid(-1, &status2, 0);
+	if ((WIFEXITED(status1) && WEXITSTATUS(status1) == 0) &&
+	    (WIFEXITED(status2) && WEXITSTATUS(status2) == 0))
 		return (0);
 	return (1);
 }

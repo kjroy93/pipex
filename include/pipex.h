@@ -6,7 +6,7 @@
 /*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:23:23 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/23 20:01:12 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/24 20:01:14 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	cmd_free(t_cmd **lst);
 char	*define_path(char *cmd, char **envp);
 void	free_matrix(char **matrix);
 void	perror_exit(char *message);
-void	perror_free(char *message, t_pipex *data, char *path);
+void	perror_free(t_pipex *data, t_cmd *cmd, char *path);
 void	close_fd_parent(t_pipex *data);
 int		open_files(t_pipex *data);
 void	redirect_infile(int fd);

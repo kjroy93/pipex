@@ -6,16 +6,20 @@
 /*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:23:11 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/23 19:51:42 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/24 19:13:50 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void	here_doc_close(t_pipex *data)
+static void	here_doc_close(t_pipex *data, int exit_code)
 {
 	close(data->infile_fd);
+	close(data->outfile_fd);
+	get_next_line(-1);
+	free(data);
 	unlink(".heredoc_tmp");
+	exit(exit_code);
 }
 
 static void	init_pipex(t_pipex *data, int argc, char **argv, char **envp)
@@ -57,7 +61,7 @@ int	main(int argc, char **argv, char **envp)
 	exit_code = pater_familias_bonus(data);
 	cmd_free(&data->cmds);
 	if (data->heredoc)
-		here_doc_close(data);
+		here_doc_close(data, exit_code);
 	close_fd_parent(data);
 	free(data);
 	get_next_line(-1);

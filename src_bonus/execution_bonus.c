@@ -6,7 +6,7 @@
 /*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:23:01 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/23 20:08:01 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/24 20:01:03 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ static void	execute(t_cmd *cmd, t_pipex *data, char **envp)
 		return ;
 	path = define_path(cmd->argv[0], envp);
 	if (!path)
-		perror_free(cmd->argv[0], data, path);
+		perror_free(data, cmd, path);
 	execve(path, cmd->argv, envp);
-	perror_free("execve", data, path);
+	perror_free(data, cmd, path);
 }
 
 static t_cmd	*next_cmd(t_pipex *data, t_cmd *cmd, int *prev_fd, int fd[2])
