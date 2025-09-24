@@ -6,7 +6,7 @@
 /*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:22:12 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/24 20:17:11 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/24 20:21:13 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	perror_exit(char *message)
 	exit(EXIT_FAILURE);
 }
 
-void perror_free(t_pipex *data, t_cmd *cmd, char *path)
+void	perror_free(t_pipex *data, t_cmd *cmd, char *path)
 {
 	ft_putstr_fd("pipex: command not found: ", 2);
 	ft_putendl_fd(cmd->argv[0], 2);

@@ -6,7 +6,7 @@
 /*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 19:58:28 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/24 19:54:59 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/24 20:21:06 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ int	pater_familias(t_pipex *data, char **envp)
 	close(fd[1]);
 	waitpid(-1, &status1, 0);
 	waitpid(-1, &status2, 0);
-	if ((WIFEXITED(status1) && WEXITSTATUS(status1) == 0) &&
-	    (WIFEXITED(status2) && WEXITSTATUS(status2) == 0))
+	if ((WIFEXITED(status1) && WEXITSTATUS(status1) == 0)
+		&& (WIFEXITED(status2) && WEXITSTATUS(status2) == 0))
 		return (0);
 	return (1);
 }
