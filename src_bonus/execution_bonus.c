@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:23:01 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/24 20:01:03 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/25 14:41:27 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,6 @@ static void	init_pater(t_pipex *data, t_cmd **cmd, int *fd)
 	data->pids = malloc((sizeof(pid_t)) * data->n_cmds);
 	if (!data->pids)
 		perror_exit("malloc data->pids");
-}
-
-static void	execute(t_cmd *cmd, t_pipex *data, char **envp)
-{
-	char	*path;
-
-	if (!cmd || !cmd->argv || !cmd->argv[0])
-		return ;
-	path = define_path(cmd->argv[0], envp);
-	if (!path)
-		perror_free(data, cmd, path);
-	execve(path, cmd->argv, envp);
-	perror_free(data, cmd, path);
 }
 
 static t_cmd	*next_cmd(t_pipex *data, t_cmd *cmd, int *prev_fd, int fd[2])

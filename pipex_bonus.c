@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:23:11 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/24 19:13:50 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/25 14:46:17 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	}
 	exit_code = pater_familias_bonus(data);
-	cmd_free(&data->cmds);
 	if (data->heredoc)
 		here_doc_close(data, exit_code);
 	close_fd_parent(data);

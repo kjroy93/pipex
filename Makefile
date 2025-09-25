@@ -14,25 +14,25 @@ INCLUDE_DIR = include
 LIBFT_INCLUDE = $(LIBFT_DIR)/include
 
 # Source files mandatory
-SRC         = $(SRC_DIR)/parse/get_argv.c \
-              $(SRC_DIR)/parse/ft_new_split.c \
-              $(SRC_DIR)/utils/utils.c \
+SRC         = $(SRC_DIR)/parse/get_argv.c 			\
+              $(SRC_DIR)/parse/ft_new_split.c 		\
+              $(SRC_DIR)/utils/utils.c 				\
               $(SRC_DIR)/utils/redirect_functions.c \
-              $(SRC_DIR)/utils/error_free.c \
-              $(SRC_DIR)/parse/execution.c \
-              $(SRC_DIR)/pipex.c
+              $(SRC_DIR)/utils/error_free.c 		\
+              $(SRC_DIR)/parse/execution.c 			\
+              pipex.c
 
 # Source files bonus
-SRC_BONUS   = $(SRC_DIR)/parse/get_argv.c \
-              $(SRC_DIR)/parse/ft_new_split.c \
-              $(SRC_DIR)/utils/utils.c \
+SRC_BONUS   = $(SRC_DIR)/parse/get_argv.c 			\
+              $(SRC_DIR)/parse/ft_new_split.c 		\
+              $(SRC_DIR)/utils/utils.c 				\
               $(SRC_DIR)/utils/redirect_functions.c \
-              $(SRC_DIR)/utils/error_free.c \
-			  $(SRC_BONUS_DIR)/childs_bonus.c \
-			  $(SRC_BONUS_DIR)/execution_bonus.c \
-              $(SRC_BONUS_DIR)/pipex_bonus.c \
-              $(SRC_BONUS_DIR)/status_bonus.c \
-			  $(SRC_BONUS_DIR)/here_doc_bonus.c 
+              $(SRC_DIR)/utils/error_free.c 		\
+              $(SRC_BONUS_DIR)/childs_bonus.c 		\
+              $(SRC_BONUS_DIR)/execution_bonus.c 	\
+              $(SRC_BONUS_DIR)/status_bonus.c 		\
+              $(SRC_BONUS_DIR)/here_doc_bonus.c 	\
+			  pipex_bonus.c
 
 # Object files
 OBJ         = $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRC))

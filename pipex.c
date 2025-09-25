@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:22:05 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/23 19:20:30 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/25 14:45:55 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	init_pipex(t_pipex *data, int argc, char **argv)
 	data->heredoc = 0;
 	data->infile = argv[1];
 	data->outfile = argv[argc - 1];
+	data->pids = NULL;
 	get_commands(argc, argv, data);
 }
 
@@ -25,7 +26,7 @@ int	main(int argc, char **argv, char **envp)
 	t_pipex	*data;
 	int		exit_code;
 
-	if (argc < 5 || argc > 5)
+	if (argc != 5)
 		return (write(2, "Error: incorrect number of arguments.\n", 34), 1);
 	data = malloc(sizeof(t_pipex));
 	if (!data)
@@ -41,7 +42,6 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	}
 	exit_code = pater_familias(data, envp);
-	cmd_free(&data->cmds);
 	close_fd_parent(data);
 	free(data);
 	return (exit_code);

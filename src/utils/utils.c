@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:22:32 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/22 21:42:39 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/25 14:45:01 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,17 +95,15 @@ int	open_files(t_pipex *data)
 	return (0);
 }
 
-void	free_matrix(char **matrix)
+void	execute(t_cmd *cmd, t_pipex *data, char **envp)
 {
-	int	i;
+	char	*path;
 
-	if (!matrix)
+	if (!cmd || !cmd->argv || !cmd->argv[0])
 		return ;
-	i = 0;
-	while (matrix[i])
-	{
-		free(matrix[i]);
-		i++;
-	}
-	free(matrix);
+	path = define_path(cmd->argv[0], envp);
+	if (!path)
+		perror_free(data, cmd, path);
+	if (execve(path, cmd->argv, envp) == -1)
+		perror_free(data, cmd, path);
 }
