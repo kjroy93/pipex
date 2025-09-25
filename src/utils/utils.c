@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/22 19:22:32 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/25 14:45:01 by kjroy93          ###   ########.fr       */
+/*   Created: 2025/09/25 19:06:01 by kmarrero          #+#    #+#             */
+/*   Updated: 2025/09/25 20:49:21 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,32 +42,32 @@ void	cmd_add_back(t_cmd **lst, t_cmd *new)
 	tmp->next = new;
 }
 
-void	cmd_free(t_cmd **lst)
+void	cmd_free(t_cmd **cmds)
 {
 	t_cmd	*tmp;
-	t_cmd	*next;
+	t_cmd	*cur;
 	int		i;
 
-	if (!lst || !(*lst))
+	if (!cmds || !*cmds)
 		return ;
-	tmp = *lst;
-	while (tmp)
+	cur = *cmds;
+	while (cur)
 	{
-		if (tmp->argv)
+		tmp = cur->next;
+		if (cur->argv)
 		{
 			i = 0;
-			while (tmp->argv[i])
+			while (cur->argv[i])
 			{
-				free(tmp->argv[i]);
+				free(cur->argv[i]);
 				i++;
 			}
-			free(tmp->argv);
+			free(cur->argv);
 		}
-		next = tmp->next;
-		free(tmp);
-		tmp = next;
+		free(cur);
+		cur = tmp;
 	}
-	*lst = NULL;
+	*cmds = NULL;
 }
 
 int	open_files(t_pipex *data)

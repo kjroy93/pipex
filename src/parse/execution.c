@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/23 19:58:28 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/25 14:44:57 by kjroy93          ###   ########.fr       */
+/*   Created: 2025/09/25 19:05:50 by kmarrero          #+#    #+#             */
+/*   Updated: 2025/09/25 21:07:17 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static pid_t	first_child(t_pipex *data, char **envp, int fd[2])
 	if (pid < 0)
 	{
 		perror("fork first child");
-		exit(EXIT_FAILURE);
+		return (-1);
 	}
 	if (pid == 0)
 	{
@@ -41,7 +41,7 @@ static pid_t	second_child(t_pipex *data, char **envp, int fd[2])
 	if (pid < 0)
 	{
 		perror("fork second child");
-		exit(EXIT_FAILURE);
+		return (-1);
 	}
 	if (pid == 0)
 	{
@@ -71,9 +71,13 @@ int	pater_familias(t_pipex *data, char **envp)
 	pid2 = second_child(data, envp, fd);
 	close(fd[0]);
 	close(fd[1]);
-	waitpid(pid1, &status1, 0);
-	waitpid(pid2, &status2, 0);
-	if ((WIFEXITED(status2) && WEXITSTATUS(status2) == 0))
+	status1 = -1;
+	if (pid1 > 0)
+		waitpid(pid1, &status1, 0);
+	status2 = -1;
+	if (pid2 > 0)
+		waitpid(pid2, &status2, 0);
+	if (WIFEXITED(status2) && WEXITSTATUS(status2) == 0)
 		return (0);
 	return (1);
 }

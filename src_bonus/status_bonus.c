@@ -6,7 +6,7 @@
 /*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:23:15 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/22 19:23:17 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/25 21:12:12 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,5 @@ int	special_wait(pid_t *pids, int n)
 			exit_code = WEXITSTATUS(status);
 		i++;
 	}
-	free(pids);
 	return (exit_code);
 }

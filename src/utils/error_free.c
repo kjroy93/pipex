@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   error_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/22 19:22:12 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/25 14:46:03 by kjroy93          ###   ########.fr       */
+/*   Created: 2025/09/25 19:05:56 by kmarrero          #+#    #+#             */
+/*   Updated: 2025/09/25 20:55:26 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+static int	error_message(t_cmd *cmd, char*path)
+{
+	if (!path)
+	{
+		ft_putstr_fd("pipex: command not found: ", 2);
+		if (cmd && cmd->argv && cmd->argv[0])
+			ft_putstr_fd(cmd->argv[0], 2);
+		ft_putstr_fd("\n", 2);
+		return (1);
+	}
+	else
+	{
+		perror("execve");
+		return (2);
+	}
+}
 
 void	perror_exit(char *message)
 {
@@ -20,9 +37,9 @@ void	perror_exit(char *message)
 
 void	perror_free(t_pipex *data, t_cmd *cmd, char *path)
 {
-	ft_putstr_fd("pipex: command not found: ", 2);
-	ft_putstr_fd(cmd->argv[0], 2);
-	ft_putstr_fd("\n", 2);
+	int	code;
+
+	code = error_message(cmd, path);
 	if (data)
 	{
 		if (data->cmds)
@@ -39,7 +56,12 @@ void	perror_free(t_pipex *data, t_cmd *cmd, char *path)
 	}
 	if (path)
 		free(path);
-	exit(127);
+	if (code == 1)
+		exit(127);
+	else if (code == 2)
+		exit(126);
+	else
+		exit(EXIT_FAILURE);
 }
 
 void	free_matrix(char **matrix)
@@ -57,9 +79,19 @@ void	free_matrix(char **matrix)
 	free(matrix);
 }
 
-void	close_fd_parent(t_pipex *data)
+void	free_pipex(t_pipex *data)
 {
-	cmd_free(&data->cmds);
-	close(data->infile_fd);
-	close(data->outfile_fd);
+	if (!data)
+		return ;
+	if (data->cmds)
+		cmd_free(&data->cmds);
+	if (data->pids)
+		free(data->pids);
+	if (data->infile_fd > 2)
+		close(data->infile_fd);
+	if (data->outfile_fd > 2)
+		close(data->outfile_fd);
+	if (data->heredoc)
+		get_next_line(-1);
+	free(data);
 }

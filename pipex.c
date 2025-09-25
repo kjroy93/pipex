@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/22 19:22:05 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/25 14:45:55 by kjroy93          ###   ########.fr       */
+/*   Created: 2025/09/25 19:06:20 by kmarrero          #+#    #+#             */
+/*   Updated: 2025/09/25 21:01:56 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	}
 	exit_code = pater_familias(data, envp);
-	close_fd_parent(data);
-	free(data);
+	free_pipex(data);
 	return (exit_code);
 }

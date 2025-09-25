@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/22 19:23:11 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/25 14:46:17 by kjroy93          ###   ########.fr       */
+/*   Created: 2025/09/25 19:06:15 by kmarrero          #+#    #+#             */
+/*   Updated: 2025/09/25 21:09:32 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-static void	here_doc_close(t_pipex *data, int exit_code)
-{
-	close(data->infile_fd);
-	close(data->outfile_fd);
-	get_next_line(-1);
-	free(data);
-	unlink(".heredoc_tmp");
-	exit(exit_code);
-}
 
 static void	init_pipex(t_pipex *data, int argc, char **argv, char **envp)
 {
@@ -60,9 +50,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	exit_code = pater_familias_bonus(data);
 	if (data->heredoc)
-		here_doc_close(data, exit_code);
-	close_fd_parent(data);
-	free(data);
-	get_next_line(-1);
+		unlink(".heredoc_tmp");
+	free_pipex(data);
 	return (exit_code);
 }
