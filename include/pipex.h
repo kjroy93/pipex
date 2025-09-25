@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:23:23 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/25 16:02:31 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/09/25 18:56:19 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,16 @@ typedef struct s_cmd
  */
 typedef struct s_pipex
 {
-    char    *outfile;   /**< Output file path. */
-    char    *infile;    /**< Input file path. */
-    char    **envp;     /**< Environment variables from main. */
-    int     outfile_fd; /**< File descriptor for the output file. */
-    int     infile_fd;  /**< File descriptor for the input file. */
-    int     heredoc;    /**< Flag indicating if here-document mode is used. */
-    int     n_cmds;     /**< Number of commands in the pipeline. */
-    t_cmd   *cmds;      /**< Pointer to the head of the command list. */
-    pid_t   *pids;      /**< Array of child process IDs. */
-}   t_pipex;
+	char	*outfile;	/**< Output file path. */
+	char	*infile;	/**< Input file path. */
+	char	**envp;		/**< Environment variables from main. */
+	int		outfile_fd;	/**< File descriptor for the output file. */
+	int		infile_fd;	/**< File descriptor for the input file. */
+	int		heredoc;	/**< Flag indicating if here-document mode is used. */
+	int		n_cmds;		/**< Number of commands in the pipeline. */
+	t_cmd	*cmds;		/**< Pointer to the head of the command list. */
+	pid_t	*pids;		/**< Array of child process IDs. */
+}	t_pipex;
 
 // ----------------- Structure ----------------------
 
@@ -189,7 +189,7 @@ void	redirect_pipe_in(int read_fd);
 /**
  * @brief Redirects the standard output (stdout) to write to a pipe.
  *
- * Used when connecting this command’s output to the next command in the pipeline.
+ * Used when connecting this command’s output to the next command in the pipe.
  *
  * @param write_fd Write end of the pipe.
  */
@@ -205,7 +205,7 @@ void	redirect_pipe_out(int write_fd);
  * @param data Pointer to the main t_pipex structure.
  * @return 0 on success, -1 on failure.
  */
-int	open_files(t_pipex *data);
+int		open_files(t_pipex *data);
 
 /**
  * @brief Closes the input and output file descriptors in the parent process.
