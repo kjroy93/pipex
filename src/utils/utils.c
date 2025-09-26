@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 19:06:01 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/25 20:49:21 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/26 16:06:46 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,11 @@ void	execute(t_cmd *cmd, t_pipex *data, char **envp)
 	char	*path;
 
 	if (!cmd || !cmd->argv || !cmd->argv[0])
-		return ;
+	{
+		cmd_free(&data->cmds);
+		free_pipex(data);
+		exit(127);
+	}
 	path = define_path(cmd->argv[0], envp);
 	if (!path)
 		perror_free(data, cmd, path);

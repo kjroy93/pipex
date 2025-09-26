@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 19:05:56 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/25 20:55:26 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/26 16:06:25 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ static int	error_message(t_cmd *cmd, char*path)
 {
 	if (!path)
 	{
-		ft_putstr_fd("pipex: command not found: ", 2);
 		if (cmd && cmd->argv && cmd->argv[0])
 			ft_putstr_fd(cmd->argv[0], 2);
+		ft_putstr_fd(" :command not found", 2);
 		ft_putstr_fd("\n", 2);
 		return (1);
 	}

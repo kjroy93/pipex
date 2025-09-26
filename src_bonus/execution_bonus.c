@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   execution_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 19:06:08 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/25 19:06:10 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/26 16:11:38 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+static void	fork_error(int fd[2])
+{
+	ft_putstr_fd("fork: Resource not available.\n", 2);
+	close(fd[0]);
+	close(fd[1]);
+}
 
 static void	init_pater(t_pipex *data, t_cmd **cmd, int *fd)
 {
@@ -66,7 +73,7 @@ int	pater_familias_bonus(t_pipex *data)
 		}
 		pid = fork();
 		if (pid == -1)
-			perror_exit("pid");
+			return ((fork_error(fd)), 1);
 		if (pid == 0)
 			childs_bonus(data, cmd, fd, &prev_fd);
 		else
