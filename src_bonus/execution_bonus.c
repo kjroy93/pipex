@@ -6,17 +6,17 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 19:06:08 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/26 16:11:38 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/09/26 18:09:51 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void	fork_error(int fd[2])
+static void	fork_error(t_pipex *data)
 {
 	ft_putstr_fd("fork: Resource not available.\n", 2);
-	close(fd[0]);
-	close(fd[1]);
+	close(data->pipe_fd[0]);
+	close(data->pipe_fd[1]);
 }
 
 static void	init_pater(t_pipex *data, t_cmd **cmd, int *fd)
@@ -25,40 +25,42 @@ static void	init_pater(t_pipex *data, t_cmd **cmd, int *fd)
 	*fd = data->infile_fd;
 	data->pids = malloc((sizeof(pid_t)) * data->n_cmds);
 	if (!data->pids)
-		perror_exit("malloc data->pids");
+	{
+		perror("pids");
+		exit(EXIT_FAILURE);
+	}
 }
 
-static t_cmd	*next_cmd(t_pipex *data, t_cmd *cmd, int *prev_fd, int fd[2])
+static t_cmd	*next_cmd(t_pipex *data, t_cmd *cmd, int *prev_fd)
 {
 	if (*prev_fd != data->infile_fd)
 		close(*prev_fd);
 	if (cmd->next)
 	{
-		close(fd[1]);
-		*prev_fd = fd[0];
+		close(data->pipe_fd[1]);
+		*prev_fd = data->pipe_fd[0];
 		return (cmd->next);
 	}
 	if (cmd != data->cmds)
-		close(fd[0]);
+		close(data->pipe_fd[0]);
 	return (NULL);
 }
 
-static void	childs_bonus(t_pipex *data, t_cmd *cmd, int fd[2], int *fd_in)
+static void	childs_bonus(t_pipex *data, t_cmd *cmd, int *fd_in)
 {
 	if (cmd == data->cmds)
-		first_child_bonus(data, cmd, fd);
+		first_child_bonus(data, cmd);
 	else if (cmd->next == NULL)
 		last_child_bonus(data, fd_in);
 	else
-		mid_child_bonus(data, fd, fd_in);
-	execute(cmd, data, data->envp);
+		mid_child_bonus(data, fd_in);
+	execute(cmd, data);
 }
 
 int	pater_familias_bonus(t_pipex *data)
 {
 	t_cmd	*cmd;
 	pid_t	pid;
-	int		fd[2];
 	int		prev_fd;
 	int		i;
 
@@ -68,17 +70,17 @@ int	pater_familias_bonus(t_pipex *data)
 	{
 		if (cmd->next)
 		{
-			if (pipe(fd) == -1)
-				perror_exit("pipe");
+			if (pipe(data->pipe_fd) == -1)
+				return (perror("pipe"), 1);
 		}
 		pid = fork();
 		if (pid == -1)
-			return ((fork_error(fd)), 1);
+			return ((fork_error(data)), 1);
 		if (pid == 0)
-			childs_bonus(data, cmd, fd, &prev_fd);
+			childs_bonus(data, cmd, &prev_fd);
 		else
 			data->pids[i++] = pid;
-		cmd = next_cmd(data, cmd, &prev_fd, fd);
+		cmd = next_cmd(data, cmd, &prev_fd);
 	}
 	return (special_wait(data->pids, i));
 }

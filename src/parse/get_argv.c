@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_argv.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:22:53 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/23 20:21:53 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/26 17:47:43 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,23 @@ static char	*is_accesible(char **paths, int *i, char *cmd)
 	return (NULL);
 }
 
+static char	*relative_absolute_path(char *cmd)
+{
+	if (access(cmd, F_OK) != 0)
+		return (NULL);
+	if (access(cmd, X_OK) != 0)
+		return (ft_strdup(cmd));
+	return (ft_strdup(cmd));
+}
+
 char	*define_path(char *cmd, char **envp)
 {
 	char	*full_path;
 	char	**paths;
 	int		i;
 
-	if (access(cmd, X_OK) == 0)
-		return (ft_strdup(cmd));
+	if (ft_strchr(cmd, '/'))
+		return (relative_absolute_path(cmd));
 	i = 0;
 	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5) != 0)
 		i++;

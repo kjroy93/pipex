@@ -3,41 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   childs_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:34:52 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/23 20:00:52 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/26 18:06:04 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	first_child_bonus(t_pipex *data, t_cmd *cmd, int fd[2])
+void	first_child_bonus(t_pipex *data, t_cmd *cmd)
 {
-	redirect_infile(data->infile_fd);
+	redirect_infile(data->infile_fd, data);
 	if (cmd->next)
 	{
-		redirect_pipe_out(fd[1]);
-		close(fd[0]);
+		redirect_pipe_out(data->pipe_fd[1], data);
+		close(data->pipe_fd[0]);
 	}
 	else
-		redirect_outfile(data->outfile_fd);
+		redirect_outfile(data->outfile_fd, data);
 	close(data->outfile_fd);
 }
 
-void	mid_child_bonus(t_pipex *data, int fd[2], int *fd_in)
+void	mid_child_bonus(t_pipex *data, int *fd_in)
 {
-	redirect_pipe_in(*fd_in);
-	redirect_pipe_out(fd[1]);
-	close(fd[0]);
+	redirect_pipe_in(*fd_in, data);
+	redirect_pipe_out(data->pipe_fd[1], data);
+	close(data->pipe_fd[0]);
 	close(data->infile_fd);
 	close(data->outfile_fd);
 }
 
 void	last_child_bonus(t_pipex *data, int *fd_in)
 {
-	redirect_pipe_in(*fd_in);
-	redirect_outfile(data->outfile_fd);
+	redirect_pipe_in(*fd_in, data);
+	redirect_outfile(data->outfile_fd, data);
 	close(*fd_in);
 	close(data->infile_fd);
 }

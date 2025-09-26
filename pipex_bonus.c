@@ -6,7 +6,7 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 19:06:15 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/26 16:07:42 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/09/26 18:12:40 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ int	main(int argc, char **argv, char **envp)
 		return (write(2, "Error: not sufficient arguments.\n", 34), 1);
 	data = malloc(sizeof(t_pipex));
 	if (!data)
-		perror_exit("malloc for data structure in main not done.\n");
+	{
+		perror("malloc for data structure not done");
+		return (1);
+	}
 	init_pipex(data, argc, argv, envp);
 	if (open_files(data) == 1)
 	{
