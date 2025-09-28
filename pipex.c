@@ -6,7 +6,7 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 19:06:20 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/26 17:07:10 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/09/28 15:03:33 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	init_pipex(t_pipex *data, int argc, char **argv, char **envp)
 	data->heredoc = 0;
 	data->infile = argv[1];
 	data->outfile = argv[argc - 1];
+	ft_memset(data->pipe_fd, 0, sizeof(data->pipe_fd));
 	data->pids = NULL;
 	get_commands(argc, argv, data);
 }
@@ -28,7 +29,7 @@ int	main(int argc, char **argv, char **envp)
 	int		exit_code;
 
 	if (argc != 5)
-		return (write(2, "Error: incorrect number of arguments.\n", 34), 1);
+		return (write(2, "Error: incorrect number of arguments.\n", 39), 1);
 	data = malloc(sizeof(t_pipex));
 	if (!data)
 	{

@@ -14,24 +14,26 @@ INCLUDE_DIR = include
 LIBFT_INCLUDE = $(LIBFT_DIR)/include
 
 # Source files mandatory
-SRC         = $(SRC_DIR)/parse/get_argv.c 			\
-              $(SRC_DIR)/parse/ft_new_split.c 		\
-              $(SRC_DIR)/utils/utils.c 				\
-              $(SRC_DIR)/utils/redirect_functions.c \
-              $(SRC_DIR)/utils/error_free.c 		\
-              $(SRC_DIR)/parse/execution.c 			\
+SRC         = $(SRC_DIR)/parse/get_argv.c 				\
+              $(SRC_DIR)/parse/ft_new_split.c 			\
+			  $(SRC_DIR)/parse/stack.c					\
+              $(SRC_DIR)/utils/error_free.c 			\
+              $(SRC_DIR)/execute/pater_son.c 			\
+			  $(SRC_DIR)/execute/redirect_functions.c	\
+			  $(SRC_DIR)/execute/utils.c				\
               pipex.c
 
 # Source files bonus
-SRC_BONUS   = $(SRC_DIR)/parse/get_argv.c 			\
-              $(SRC_DIR)/parse/ft_new_split.c 		\
-              $(SRC_DIR)/utils/utils.c 				\
-              $(SRC_DIR)/utils/redirect_functions.c \
-              $(SRC_DIR)/utils/error_free.c 		\
-              $(SRC_BONUS_DIR)/childs_bonus.c 		\
-              $(SRC_BONUS_DIR)/execution_bonus.c 	\
-              $(SRC_BONUS_DIR)/status_bonus.c 		\
-              $(SRC_BONUS_DIR)/here_doc_bonus.c 	\
+SRC_BONUS   = $(SRC_DIR)/parse/get_argv.c 				\
+              $(SRC_DIR)/parse/ft_new_split.c 			\
+              $(SRC_DIR)/parse/stack.c					\
+              $(SRC_DIR)/execute/redirect_functions.c	\
+			  $(SRC_DIR)/execute/utils.c				\
+              $(SRC_DIR)/utils/error_free.c 			\
+              $(SRC_BONUS_DIR)/childs_bonus.c 			\
+              $(SRC_BONUS_DIR)/pater_son_bonus.c 		\
+              $(SRC_BONUS_DIR)/status_bonus.c 			\
+              $(SRC_BONUS_DIR)/here_doc_bonus.c 		\
 			  pipex_bonus.c
 
 # Object files

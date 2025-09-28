@@ -6,7 +6,7 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 19:05:50 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/26 17:21:05 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/09/28 14:18:54 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ static pid_t	first_child(t_pipex *data)
 
 	pid = fork();
 	if (pid < 0)
-	{
-		ft_putstr_fd("fork: Resource not available.\n", 2);;
-		return (-1);
-	}
+		return (ft_putstr_fd("fork: Resource not available.\n", 2), -1);
 	if (pid == 0)
 	{
 		redirect_infile(data->infile_fd, data);
@@ -39,10 +36,7 @@ static pid_t	second_child(t_pipex *data)
 
 	pid = fork();
 	if (pid < 0)
-	{
-		ft_putstr_fd("fork: Resource not available.\n", 2);;
-		return (-1);
-	}
+		return (ft_putstr_fd("fork: Resource not available.\n", 2), -1);
 	if (pid == 0)
 	{
 		redirect_pipe_in(data->pipe_fd[0], data);

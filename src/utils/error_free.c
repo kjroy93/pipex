@@ -6,7 +6,7 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 19:05:56 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/26 17:28:25 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/09/28 14:37:22 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,34 @@ void	perror_free(t_pipex *data, t_cmd *cmd, char *path)
 		exit(126);
 	else
 		exit(EXIT_FAILURE);
+}
+
+void	cmd_free(t_cmd **cmds)
+{
+	t_cmd	*tmp;
+	t_cmd	*cur;
+	int		i;
+
+	if (!cmds || !*cmds)
+		return ;
+	cur = *cmds;
+	while (cur)
+	{
+		tmp = cur->next;
+		if (cur->argv)
+		{
+			i = 0;
+			while (cur->argv[i])
+			{
+				free(cur->argv[i]);
+				i++;
+			}
+			free(cur->argv);
+		}
+		free(cur);
+		cur = tmp;
+	}
+	*cmds = NULL;
 }
 
 void	free_matrix(char **matrix)

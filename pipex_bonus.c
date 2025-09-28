@@ -6,7 +6,7 @@
 /*   By: kjroy93 <kjroy93@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 19:06:15 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/26 18:12:40 by kjroy93          ###   ########.fr       */
+/*   Updated: 2025/09/28 15:03:20 by kjroy93          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	init_pipex(t_pipex *data, int argc, char **argv, char **envp)
 		data->heredoc = 1;
 		data->infile = NULL;
 		data->outfile = argv[argc - 1];
+		ft_memset(data->pipe_fd, 0, sizeof(data->pipe_fd));
 		get_commands_here_doc(argc, argv, data);
 	}
 	else
@@ -27,6 +28,7 @@ static void	init_pipex(t_pipex *data, int argc, char **argv, char **envp)
 		data->heredoc = 0;
 		data->infile = argv[1];
 		data->outfile = argv[argc - 1];
+		ft_memset(data->pipe_fd, 0, sizeof(data->pipe_fd));
 		get_commands(argc, argv, data);
 	}
 }
