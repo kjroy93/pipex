@@ -6,12 +6,11 @@
 /*   By: kmarrero <kmarrero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 19:22:21 by kmarrero          #+#    #+#             */
-/*   Updated: 2025/09/29 19:13:57 by kmarrero         ###   ########.fr       */
+/*   Updated: 2025/09/29 19:16:18 by kmarrero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
 
 static void	perror_exit(char *message)
 {
@@ -19,7 +18,7 @@ static void	perror_exit(char *message)
 	exit(EXIT_FAILURE);
 }
 
-void redirect_infile(int fd, t_pipex *data)
+void	redirect_infile(int fd, t_pipex *data)
 {
 	if (fd < 0)
 	{
@@ -35,7 +34,7 @@ void redirect_infile(int fd, t_pipex *data)
 	close(fd);
 }
 
-void redirect_outfile(int fd, t_pipex *data)
+void	redirect_outfile(int fd, t_pipex *data)
 {
 	if (fd < 0)
 	{
@@ -51,7 +50,7 @@ void redirect_outfile(int fd, t_pipex *data)
 	close(fd);
 }
 
-void redirect_pipe_in(int read_fd, t_pipex *data)
+void	redirect_pipe_in(int read_fd, t_pipex *data)
 {
 	if (read_fd < 0)
 	{
@@ -67,7 +66,7 @@ void redirect_pipe_in(int read_fd, t_pipex *data)
 	close(read_fd);
 }
 
-void redirect_pipe_out(int write_fd, t_pipex *data)
+void	redirect_pipe_out(int write_fd, t_pipex *data)
 {
 	if (write_fd < 0)
 	{
